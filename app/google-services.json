@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "358718964797",
+    "project_id": "pruebaeber-48fc2",
+    "storage_bucket": "pruebaeber-48fc2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358718964797:android:fbcbfb82559541b7de9654",
+        "android_client_info": {
+          "package_name": "com.example.pruebaeber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358718964797-c75hmdkkocroddek295rrivsobfu8gfi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCub8oddzlpyz6kY6koVb1qvPR6Xk8Ncwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358718964797-c75hmdkkocroddek295rrivsobfu8gfi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
