@@ -37,14 +37,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/registrarButton"
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewMensajes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/red"
-                android:text="Cerrar Sesión"
-                tools:ignore="TextContrastCheck"/>
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
     </LinearLayout>

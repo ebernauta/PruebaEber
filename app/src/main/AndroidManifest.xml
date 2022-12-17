@@ -12,17 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PruebaEber"
-        tools:targetApi="31">
-        <activity
-            android:name=".InicioActivity"
-            android:exported="false"
-            android:label="@string/title_activity_inicio"
-            android:theme="@style/Theme.PruebaEber.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.PruebaEber.NoActionBar" />
+        tools:targetApi="31"
+        tools:replace="android:appComponentFactory">
         <activity
             android:name=".RegistrarUsuario"
             android:exported="false" />

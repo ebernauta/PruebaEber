@@ -47,39 +47,6 @@ public class RegistrarUsuario extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         mdataBase = FirebaseDatabase.getInstance().getReference();
 
-        mdataBase.child("Usuarios").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for ( final DataSnapshot  snapshot1: snapshot.getChildren()){
-                    mdataBase.child("Usuarios").child(snapshot1.getKey()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            usuarios user = snapshot1.getValue(usuarios.class);
-                            String email = user.getEmail();
-                            String contraseña = user.getContraseña();
-
-                            Log.e("EmailUsuario:", ""+email);
-                            Log.e("ContraseñaUsuario:", ""+contraseña);
-                            
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
 
         Email = findViewById(R.id.registrarEmail);
         Contraseña = findViewById(R.id.registrarContraseña);
