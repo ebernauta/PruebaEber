@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +46,41 @@ public class RegistrarUsuario extends AppCompatActivity {
         setContentView(R.layout.fragment_registrar_usuario);
         auth = FirebaseAuth.getInstance();
         mdataBase = FirebaseDatabase.getInstance().getReference();
+
+        mdataBase.child("Usuarios").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for ( final DataSnapshot  snapshot1: snapshot.getChildren()){
+                    mdataBase.child("Usuarios").child(snapshot1.getKey()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            usuarios user = snapshot1.getValue(usuarios.class);
+                            String email = user.getEmail();
+                            String contraseña = user.getContraseña();
+
+                            Log.e("EmailUsuario:", ""+email);
+                            Log.e("ContraseñaUsuario:", ""+contraseña);
+                            
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         Email = findViewById(R.id.registrarEmail);
         Contraseña = findViewById(R.id.registrarContraseña);
         btnRegistrar = findViewById(R.id.registrarNuevoUsuario);
