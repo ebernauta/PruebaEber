@@ -45,7 +45,9 @@ public class RegistrarUsuario extends AppCompatActivity {
         Email = findViewById(R.id.registrarEmail);
         Contraseña = findViewById(R.id.registrarContraseña);
         btnRegistrar = findViewById(R.id.registrarNuevoUsuario);
-
+        progressDialog = new ProgressDialog(RegistrarUsuario.this);
+        progressDialog.setMessage("Registrando nuevo usuario... espere por favor");
+        progressDialog.setCancelable(false);
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +56,6 @@ public class RegistrarUsuario extends AppCompatActivity {
 
                 if (emailUser.isEmpty() && contraseñaUser.isEmpty()){
                     Toast.makeText(RegistrarUsuario.this, "Complete los datos", Toast.LENGTH_SHORT).show();
-
                 }else {
                     registrarUsuarios(emailUser, contraseñaUser);
                 }
@@ -62,12 +63,17 @@ public class RegistrarUsuario extends AppCompatActivity {
 
         });
 
+
     }
     private void registrarUsuarios(String emailUser, String contraseñaUser) {
+
+        progressDialog.show();
+
         auth.createUserWithEmailAndPassword(emailUser, contraseñaUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    progressDialog.dismiss();
                     Map<String, Object> map = new HashMap<>();
                     map.put("Email", emailUser);
                     map.put("Contraseña", contraseñaUser);
@@ -76,23 +82,30 @@ public class RegistrarUsuario extends AppCompatActivity {
                     mdataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
+                            progressDialog.show();
+                            progressDialog.setCancelable(false);
                             if (task2.isSuccessful()){
-                                startActivity(new Intent(RegistrarUsuario.this, MenuActivity.class));
+                                progressDialog.dismiss();
+                                startActivity(new Intent(RegistrarUsuario.this, Login.class));
+                                Toast.makeText(RegistrarUsuario.this, "Usuario Registrado con exito!", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                             else {
+                                progressDialog.dismiss();
                                 Toast.makeText(RegistrarUsuario.this, "No se crearon los datos correctamente", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
                 else {
+                    progressDialog.dismiss();
                     Toast.makeText(RegistrarUsuario.this, "No se pudo registrar este usuario", Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
                 Toast.makeText(RegistrarUsuario.this, "Error al registrar", Toast.LENGTH_SHORT).show();
             }
         });
